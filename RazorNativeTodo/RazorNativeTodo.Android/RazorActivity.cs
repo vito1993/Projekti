@@ -41,6 +41,7 @@ namespace RazorNativeTodo
 			var template = new TodoView () { Model = model };
 			var page = template.GenerateString ();
 			webView.LoadDataWithBaseURL("file:///android_asset/", page, "text/html", "UTF-8", null);
+            string test;
 		}
 
 
