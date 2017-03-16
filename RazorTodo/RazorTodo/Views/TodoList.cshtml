@@ -1,0 +1,49 @@
+﻿@using RazorTodo
+@model List<TodoItem>
+<html >
+	<head><link rel="stylesheet" href="style.css" /></head>
+<body>
+	<h1>HybridRazorTodo <a href="hybrid:AddTask?"><img src="plus.png"/></a></h1>
+	<a href="hybrid:SpeakAll?">Speak Undone</a>
+	<a href="hybrid:TweetAll?">Tweet Undone</a>
+	<ul>
+	@foreach (var todo in @Model) {
+		<li><a href="hybrid:ViewTask?todoid=@todo.ID">@todo.Name</a>
+		@if (@todo.Done) {
+			<img src="check.png" />
+		}
+		</li>	
+	}
+	</ul>
+    <div style="width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400; border-radius:3px">
+        <div style="width:25%; display:inline-block">1.1.2016</div>
+        <div style="width:47%; display:inline-block">Tost</div>
+        <div style="width:25%; display:inline-block; ">3,7</div>
+    </div>
+    <div style="width:100%; background-color: rgba(255, 0, 0, 0.6);color:#970000;border-radius:3px">
+        <div style="width:25%; display:inline-block">1.1.2016</div>
+        <div style="width:47%; display:inline-block">Tost</div>
+        <div style="width:25%; display:inline-block; ">3,7</div>
+    </div>
+    <div style="width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400;border-radius:3px">
+        <div style="width:25%; display:inline-block">1.1.2016</div>
+        <div style="width:47%; display:inline-block">Tost</div>
+        <div style="width:25%; display:inline-block; ">3,7</div>
+    </div>
+    <div style="width:100%; background-color: rgba(255, 0, 0, 0.6);color:#970000;border-radius:3px">
+        <div style="width:25%; display:inline-block">1.1.2016</div>
+        <div style="width:47%; display:inline-block">Tost</div>
+        <div style="width:25%; display:inline-block; ">3,7</div>
+    </div>
+    <div style="width:100%; background-color: rgba(255, 0, 0, 0.6);color:#970000;border-radius:3px">
+        <div style="width:25%; display:inline-block">1.1.2016</div>
+        <div style="width:47%; display:inline-block">Tost</div>
+        <div style="width:25%; display:inline-block; ">3,7</div>
+    </div>
+    <div style="width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400;border-radius:3px">
+        <div style="width:25%; display:inline-block">1.1.2016</div>
+        <div style="width:47%; display:inline-block">Tost</div>
+        <div style="width:25%; display:inline-block; ">3,7</div>
+    </div>
+</body>
+</html>
