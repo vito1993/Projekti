@@ -23,7 +23,7 @@ using RazorTodo;
 #line hidden
 
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute("RazorTemplatePreprocessor", "4.3.0.784")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("RazorTemplatePreprocessor", "4.3.0.789")]
 public partial class TodoList : TodoListBase
 {
 
@@ -38,13 +38,55 @@ public List<TodoItem> Model { get; set; }
 
 public override void Execute()
 {
-WriteLiteral("<html >\r\n\t<head><link");
+WriteLiteral("    <html>\r\n    <head>\r\n        <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" href=\"style.css\"");
 
-WriteLiteral(" /></head>\r\n<body>\r\n\t<h1>HybridRazorTodo <a");
+WriteLiteral(" />\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"");
+
+WriteLiteral(" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh" +
+"4u\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral(">\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.cs" +
+"s\"");
+
+WriteLiteral(" integrity=\"sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/" +
+"Sp\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral(">\r\n        <script");
+
+WriteLiteral(" src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"");
+
+WriteLiteral(" integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T" +
+"xa\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral("></script>\r\n        <meta");
+
+WriteLiteral(" name=\"viewport\"");
+
+WriteLiteral(" content=\"width=device-width, initial-scale=1\"");
+
+WriteLiteral(">\r\n    </head>\r\n    <body");
+
+WriteLiteral(" style=\"background-color:blue\"");
+
+WriteLiteral(">\r\n        <h1>HybridRazorTodo <a");
 
 WriteLiteral(" href=\"hybrid:AddTask?\"");
 
@@ -52,36 +94,37 @@ WriteLiteral("><img");
 
 WriteLiteral(" src=\"plus.png\"");
 
-WriteLiteral("/></a></h1>\r\n\t<a");
+WriteLiteral(" /></a></h1>\r\n        <a");
 
 WriteLiteral(" href=\"hybrid:SpeakAll?\"");
 
-WriteLiteral(">Speak Undone</a>\r\n\t<a");
+WriteLiteral(">Speak Undone</a>\r\n        <a");
 
 WriteLiteral(" href=\"hybrid:TweetAll?\"");
 
-WriteLiteral(">Tweet Undone</a>\r\n\t<ul>\r\n");
+WriteLiteral(">Tweet Undone</a>\r\n        <ul>\r\n");
 
 
-#line 10 "TodoList.cshtml"
-	
-
-#line default
-#line hidden
-
-#line 10 "TodoList.cshtml"
-     foreach (var todo in @Model) {
-
+#line 16 "TodoList.cshtml"
+            
 
 #line default
 #line hidden
-WriteLiteral("\t\t<li><a");
+
+#line 16 "TodoList.cshtml"
+             foreach (var todo in @Model)
+            {
+
+
+#line default
+#line hidden
+WriteLiteral("                <li>\r\n                    <a");
 
 WriteAttribute ("href", " href=\"", "\""
 , Tuple.Create<string,object,bool> ("", "hybrid:ViewTask?todoid=", true)
 
-#line 11 "TodoList.cshtml"
-     , Tuple.Create<string,object,bool> ("", todo.ID
+#line 19 "TodoList.cshtml"
+             , Tuple.Create<string,object,bool> ("", todo.ID
 
 #line default
 #line hidden
@@ -90,8 +133,8 @@ WriteAttribute ("href", " href=\"", "\""
 WriteLiteral(">");
 
 
-#line 11 "TodoList.cshtml"
-                                                 Write(todo.Name);
+#line 19 "TodoList.cshtml"
+                                                         Write(todo.Name);
 
 
 #line default
@@ -99,143 +142,144 @@ WriteLiteral(">");
 WriteLiteral("</a>\r\n");
 
 
-#line 12 "TodoList.cshtml"
-		
+#line 20 "TodoList.cshtml"
+                    
 
 #line default
 #line hidden
 
-#line 12 "TodoList.cshtml"
-         if (@todo.Done) {
+#line 20 "TodoList.cshtml"
+                     if (@todo.Done)
+                    {
 
 
 #line default
 #line hidden
-WriteLiteral("\t\t\t<img");
+WriteLiteral("                        <img");
 
 WriteLiteral(" src=\"check.png\"");
 
 WriteLiteral(" />\r\n");
 
 
-#line 14 "TodoList.cshtml"
-		}
+#line 23 "TodoList.cshtml"
+                    }
 
 
 #line default
 #line hidden
-WriteLiteral("\t\t</li>\t\r\n");
+WriteLiteral("                </li>\r\n");
 
 
-#line 16 "TodoList.cshtml"
-	}
+#line 25 "TodoList.cshtml"
+}
 
 
 #line default
 #line hidden
-WriteLiteral("\t</ul>\r\n    <div");
+WriteLiteral("        </ul>\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400; border-" +
 "radius:3px\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block\"");
 
-WriteLiteral(">1.1.2016</div>\r\n        <div");
+WriteLiteral(">1.1.2016</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:47%; display:inline-block\"");
 
-WriteLiteral(">Tost</div>\r\n        <div");
+WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n    </div>\r\n    <div");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(255, 0, 0, 0.6);color:#970000;border-r" +
 "adius:3px\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block\"");
 
-WriteLiteral(">1.1.2016</div>\r\n        <div");
+WriteLiteral(">1.1.2016</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:47%; display:inline-block\"");
 
-WriteLiteral(">Tost</div>\r\n        <div");
+WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n    </div>\r\n    <div");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400;border-r" +
 "adius:3px\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block\"");
 
-WriteLiteral(">1.1.2016</div>\r\n        <div");
+WriteLiteral(">1.1.2016</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:47%; display:inline-block\"");
 
-WriteLiteral(">Tost</div>\r\n        <div");
+WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n    </div>\r\n    <div");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(255, 0, 0, 0.6);color:#970000;border-r" +
 "adius:3px\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block\"");
 
-WriteLiteral(">1.1.2016</div>\r\n        <div");
+WriteLiteral(">1.1.2016</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:47%; display:inline-block\"");
 
-WriteLiteral(">Tost</div>\r\n        <div");
+WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n    </div>\r\n    <div");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(255, 0, 0, 0.6);color:#970000;border-r" +
 "adius:3px\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block\"");
 
-WriteLiteral(">1.1.2016</div>\r\n        <div");
+WriteLiteral(">1.1.2016</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:47%; display:inline-block\"");
 
-WriteLiteral(">Tost</div>\r\n        <div");
+WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n    </div>\r\n    <div");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400;border-r" +
 "adius:3px\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block\"");
 
-WriteLiteral(">1.1.2016</div>\r\n        <div");
+WriteLiteral(">1.1.2016</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:47%; display:inline-block\"");
 
-WriteLiteral(">Tost</div>\r\n        <div");
+WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n    </div>\r\n</body>\r\n</html>");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n    </body>\r\n</html>\r\n");
 
 }
 }
