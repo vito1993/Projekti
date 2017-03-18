@@ -30,7 +30,7 @@ public partial class TodoView : TodoViewBase
 #line hidden
 
 #line 2 "TodoView.cshtml"
-public TodoItem Model { get; set; }
+public RazorTodo.DataViewModel Model { get; set; }
 
 #line default
 #line hidden
@@ -38,7 +38,101 @@ public TodoItem Model { get; set; }
 
 public override void Execute()
 {
-WriteLiteral("<html>\n<head>\n\n</head>\n<body>\n\t<h1><a");
+WriteLiteral("<html>\r\n<head>\r\n    <script");
+
+WriteLiteral(" src=\"https://code.jquery.com/jquery-3.2.0.js\"");
+
+WriteLiteral(" integrity=\"sha256-wPFJNIFlVY49B+CuAIrDr932XSb6Jk3J1M22M3E2ylQ=\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral("></script>\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"style.css\"");
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"default.css\"");
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"default.date.css\"");
+
+WriteLiteral(" />\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"default.time.css\"");
+
+WriteLiteral(" />\r\n    <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"legacy.js\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"picker.js\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"picker.date.js\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"picker.time.js\"");
+
+WriteLiteral("></script>\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"");
+
+WriteLiteral(" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh" +
+"4u\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral(">\r\n    <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.cs" +
+"s\"");
+
+WriteLiteral(" integrity=\"sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/" +
+"Sp\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral(">\r\n    <script");
+
+WriteLiteral(" src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"");
+
+WriteLiteral(" integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7T" +
+"xa\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral("></script>\r\n    <meta");
+
+WriteLiteral(" name=\"viewport\"");
+
+WriteLiteral(" content=\"width=device-width, initial-scale=1\"");
+
+WriteLiteral(">\r\n</head>\r\n<body>\r\n    <h1><a");
 
 WriteLiteral(" href=\"hybrid:ListAll?\"");
 
@@ -46,13 +140,13 @@ WriteLiteral("><img");
 
 WriteLiteral(" src=\"arrow.png\"");
 
-WriteLiteral("/></a> Todo</h1>\n\t<form");
+WriteLiteral(" /></a> Todo</h1>\r\n    <form");
 
-WriteLiteral(" action=\"hybrid:TodoView\"");
+WriteLiteral(" action=\"hybrid:DataView\"");
 
 WriteLiteral(" method=\"GET\"");
 
-WriteLiteral(">\n\t\t<input");
+WriteLiteral(">\r\n        <input");
 
 WriteLiteral(" name=\"id\"");
 
@@ -60,72 +154,85 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteAttribute ("value", " value=\"", "\""
 
-#line 10 "TodoView.cshtml"
+#line 22 "TodoView.cshtml"
        , Tuple.Create<string,object,bool> ("", Model.ID
 
 #line default
 #line hidden
 , false)
 );
-WriteLiteral(" />\n\t\t<p>Name</p>\n\t\t<input");
+WriteLiteral(" />\r\n        <p>Date</p>\r\n        <input");
 
-WriteLiteral(" name=\"name\"");
+WriteLiteral(" name=\"date\"");
+
+WriteLiteral(" type=\"text\"");
 
 WriteAttribute ("value", " value=\"", "\""
 
-#line 12 "TodoView.cshtml"
-, Tuple.Create<string,object,bool> ("", Model.Name
+#line 24 "TodoView.cshtml"
+       , Tuple.Create<string,object,bool> ("", Model.Date
 
 #line default
 #line hidden
 , false)
 );
-WriteLiteral(" />\n\t\t<p>Notes</p>\n\t\t<input");
+WriteLiteral(" class=\"datepicker\"");
+
+WriteLiteral(" />\r\n        <p>Time</p>\r\n        <input");
+
+WriteLiteral(" name=\"time\"");
+
+WriteAttribute ("value", " value=\"", "\""
+
+#line 26 "TodoView.cshtml"
+, Tuple.Create<string,object,bool> ("", Model.Time
+
+#line default
+#line hidden
+, false)
+);
+WriteLiteral(" class=\"timepicker\"");
+
+WriteLiteral(" />\r\n        <p>Result</p>\r\n        <input");
+
+WriteLiteral(" name=\"result\"");
+
+WriteAttribute ("value", " value=\"", "\""
+
+#line 28 "TodoView.cshtml"
+, Tuple.Create<string,object,bool> ("", Model.Result
+
+#line default
+#line hidden
+, false)
+);
+WriteLiteral(" />\r\n        <p>Insulin</p>\r\n        <input");
+
+WriteLiteral(" name=\"insulin\"");
+
+WriteAttribute ("value", " value=\"", "\""
+
+#line 30 "TodoView.cshtml"
+, Tuple.Create<string,object,bool> ("", Model.Insulin
+
+#line default
+#line hidden
+, false)
+);
+WriteLiteral(" />\r\n        <p>Note</p>\r\n        <input");
 
 WriteLiteral(" name=\"notes\"");
 
 WriteAttribute ("value", " value=\"", "\""
 
-#line 14 "TodoView.cshtml"
+#line 32 "TodoView.cshtml"
 , Tuple.Create<string,object,bool> ("", Model.Notes
 
 #line default
 #line hidden
 , false)
 );
-WriteLiteral(" />\n\t\t<p><label");
-
-WriteLiteral(" for=\"done\"");
-
-WriteLiteral(">Done:</label><input");
-
-WriteLiteral(" type=\"checkbox\"");
-
-WriteLiteral(" name=\"done\"");
-
-WriteLiteral(" ");
-
-
-#line 15 "TodoView.cshtml"
-                                                                              if (Model.Done) {
-
-
-#line default
-#line hidden
-WriteLiteral("\t\t\t\t\t");
-
-WriteLiteral("checked=\"checked\"");
-
-WriteLiteral("\n");
-
-
-#line 17 "TodoView.cshtml"
-				}
-
-
-#line default
-#line hidden
-WriteLiteral("\t\t/></p>\n\n\t\t<p><input");
+WriteLiteral(" />\r\n\r\n        <p>\r\n            <input");
 
 WriteLiteral(" type=\"submit\"");
 
@@ -133,22 +240,23 @@ WriteLiteral(" name=\"Button\"");
 
 WriteLiteral(" value=\"Save\"");
 
-WriteLiteral(" />\n");
+WriteLiteral(" />\r\n");
 
 
-#line 21 "TodoView.cshtml"
-		
-
-#line default
-#line hidden
-
-#line 21 "TodoView.cshtml"
-         if (Model.ID <= 0) {
-
+#line 36 "TodoView.cshtml"
+            
 
 #line default
 #line hidden
-WriteLiteral("\t\t\t<input");
+
+#line 36 "TodoView.cshtml"
+             if (Model.ID <= 0)
+            {
+
+
+#line default
+#line hidden
+WriteLiteral("                <input");
 
 WriteLiteral(" type=\"submit\"");
 
@@ -156,16 +264,17 @@ WriteLiteral(" name=\"Button\"");
 
 WriteLiteral(" value=\"Cancel\"");
 
-WriteLiteral(" />\n");
+WriteLiteral(" />\r\n");
 
 
-#line 23 "TodoView.cshtml"
-		} else {
+#line 39 "TodoView.cshtml"
+            }
+            else {
 
 
 #line default
 #line hidden
-WriteLiteral("\t\t\t<input");
+WriteLiteral("                <input");
 
 WriteLiteral(" type=\"submit\"");
 
@@ -173,24 +282,36 @@ WriteLiteral(" name=\"Button\"");
 
 WriteLiteral(" value=\"Delete\"");
 
-WriteLiteral(" />\n");
+WriteLiteral(" />\r\n");
 
 
-#line 25 "TodoView.cshtml"
-		}
+#line 42 "TodoView.cshtml"
+            }
 
 
 #line default
 #line hidden
-WriteLiteral("\t\t</p>\n\t\t<p><input");
+WriteLiteral(@"        </p>
 
-WriteLiteral(" type=\"submit\"");
+    </form>
+</body>
+</html>
 
-WriteLiteral(" name=\"Button\"");
-
-WriteLiteral(" value=\"Speak\"");
-
-WriteLiteral(" /></p>\n\n\t</form>\n</body>\n</html>");
+<script>
+    $('.datepicker').pickadate({
+        format: 'dd.mm.yyyy',
+        formatSubmit: 'dd.mm.yyyy',
+        selectYears: true,
+        selectMonths: true
+    });
+    $('.timepicker').pickatime({
+        // Escape any “rule” characters with an exclamation mark (!).
+        format: 'HH:i',
+        formatLabel: 'HH:i',
+        formatSubmit: 'HH:i',
+        interval: 5
+    })
+</script>");
 
 }
 }

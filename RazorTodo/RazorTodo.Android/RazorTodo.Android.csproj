@@ -55,19 +55,18 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Speech.cs" />
     <Compile Include="RazorWebViewClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\raw\TodoSQLite.db3" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\drawable\check.png" />
-    <AndroidResource Include="Resources\raw\TodoSQLite.db3" />
     <AndroidResource Include="Resources\drawable\plus.png" />
     <AndroidResource Include="Resources\drawable\check2x.png" />
   </ItemGroup>
@@ -78,7 +77,9 @@
       <Name>RazorTodo</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\legacy.js" />
+  </ItemGroup>
   <Import Project="../packages/Xamarin.QuickUI.Master.1.0.6276/build/portable-win+net45+wp80+MonoAndroid10+MonoTouch10/Xamarin.QuickUI.Master.targets" Condition="Exists('../packages/Xamarin.QuickUI.Master.1.0.6276/build/portable-win+net45+wp80+MonoAndroid10+MonoTouch10/Xamarin.QuickUI.Master.targets')" />
   <ItemGroup>
     <AndroidAsset Include="Assets\style.css" />
@@ -86,4 +87,23 @@
     <AndroidAsset Include="Assets\plus.png" />
     <AndroidAsset Include="Assets\arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\picker.date.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\picker.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\picker.time.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\default.time.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\default.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\default.date.css" />
+  </ItemGroup>
+  <ItemGroup />
 </Project>

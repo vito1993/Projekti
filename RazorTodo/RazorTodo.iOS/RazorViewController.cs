@@ -10,145 +10,149 @@ using RazorTodo.Views;
 
 namespace RazorTodo
 {
-	public class RazorViewController : UIViewController
-	{
-		public RazorViewController ()
-		{
-		}
-		UIWebView webView;
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
+    public class RazorViewController : UIViewController
+    {
+        public RazorViewController()
+        {
+        }
+        UIWebView webView;
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
 
-			webView = new UIWebView (UIScreen.MainScreen.Bounds);
-			View.Add (webView);
+            webView = new UIWebView(UIScreen.MainScreen.Bounds);
+            View.Add(webView);
 
-			// Intercept URL loading to handle native calls from browser
-			webView.ShouldStartLoad += HandleShouldStartLoad;
+            // Intercept URL loading to handle native calls from browser
+            webView.ShouldStartLoad += HandleShouldStartLoad;
 
-			// Render the view from the type generated from RazorView.cshtml
+            // Render the view from the type generated from RazorView.cshtml
 
-			var model = App.Database.GetItems ().ToList ();
-			var template = new TodoList () { Model = model };
-			var page = template.GenerateString ();
-			webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-		}
+            var model = App.Database.GetItems().ToList();
+            List<List<Data>> lista = model
+            .GroupBy(u => u.Group)
+            .Select(grp => grp.ToList())
+            .ToList();
 
-		bool HandleShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType) {
-			var scheme = "hybrid:";
-			// If the URL is not our own custom scheme, just let the webView load the URL as usual
-			if (request.Url.Scheme != scheme.Replace(":", ""))
-				return true;
+            var template = new TodoList() { Model = lista };
+            var page = template.GenerateString();
+            webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+        }
 
-			// This handler will treat everything between the protocol and "?"
-			// as the method name.  The querystring has all of the parameters.
-			var resources = request.Url.ResourceSpecifier.Split('?');
-			var method = resources [0];
-			var parameters = System.Web.HttpUtility.ParseQueryString(resources[1]); // breaks if ? not present (ie no params)
+        bool HandleShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
+        {
+            var scheme = "hybrid:";
+            // If the URL is not our own custom scheme, just let the webView load the URL as usual
+            if (request.Url.Scheme != scheme.Replace(":", ""))
+                return true;
 
-			if (method == "ListAll") {
-				var model = App.Database.GetItems ().ToList();
-				var template = new TodoList () { Model = model };
-				var page = template.GenerateString ();
-				webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-			}
-			else if (method == "AddTask") {
-				var template = new TodoView () { Model = new TodoItem() };
-				var page = template.GenerateString ();
-				webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-			}
-			else if (method == "ViewTask") {
-				var id = parameters ["todoid"];
-				var model = App.Database.GetItem (Convert.ToInt32 (id));
-				var template = new TodoView () { Model = model };
-				var page = template.GenerateString ();
-				webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-			} 
-			else if (method == "SpeakAll") {
-				var todos = App.Database.GetItemsNotDone ();
-				var tospeak = "";
-				foreach (var t in todos)
-					tospeak += t.Name + " ";
-				if (tospeak == "")
-					tospeak = "there are no tasks to do";
-				Speech.Speak (tospeak);
-			} else if (method == "TweetAll") {
-				var todos = App.Database.GetItemsNotDone ();
-				var totweet = "";
-				foreach (var t in todos)
-					totweet += t.Name + ",";
-				if (totweet == "")
-					totweet = "there are no tasks to tweet";
-				else 
-					totweet = "Still do to:" + totweet;
-				var tweetController = new TWTweetComposeViewController ();
-				tweetController.SetInitialText (totweet); 
-				PresentModalViewController (tweetController, true);
-			} else if (method == "TextAll") {
-				if (MFMessageComposeViewController.CanSendText) {
+            // This handler will treat everything between the protocol and "?"
+            // as the method name.  The querystring has all of the parameters.
+            var resources = request.Url.ResourceSpecifier.Split('?');
+            var method = resources[0];
+            var parameters = System.Web.HttpUtility.ParseQueryString(resources[1]); // breaks if ? not present (ie no params)
 
-					var todos = App.Database.GetItemsNotDone ();
-					var totext = "";
-					foreach (var t in todos)
-						totext += t.Name + ",";
-					if (totext == "")
-						totext = "there are no tasks to text";
+            if (method == "ListAll")
+            {
+                var model = App.Database.GetItems().ToList();
+                List<List<Data>> lista = model
+                .GroupBy(u => u.Group)
+                .Select(grp => grp.ToList())
+                .ToList();
+                var template = new TodoList() { Model = lista };
+                var page = template.GenerateString();
+                webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+            }
+            else if (method == "AddTask")
+            {
+                var template = new TodoView() { Model = new DataViewModel { Time = DateTime.Now.ToString("HH:mm"), Date = DateTime.Now.ToString("dd.MM.yyyy") } };
+                var page = template.GenerateString();
+                webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+            }
+            else if (method == "ViewTask")
+            {
+                var id = parameters["todoid"];
+                var data = App.Database.GetItem(Convert.ToInt32(id));
+                var model = new DataViewModel();
+                model.ID = data.ID;
+                model.Insulin = data.Insulin;
+                model.Result = data.Result;
+                model.Date = data.Date.ToString("dd.MM.yyyy");
+                model.Time = data.Date.ToString("HH.mm");
+                model.Notes = data.Notes;
+                var template = new TodoView() { Model = model };
+                var page = template.GenerateString();
+                webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+            }
+            else if (method == "DataView")
+            {
+                // the editing form
+                var button = parameters["Button"];
+                if (button == "Save")
+                {
+                    var id = parameters["id"];
+                    var date = parameters["date"];
+                    var result = parameters["result"];
+                    var notes = parameters["notes"];
+                    var time = parameters["time"];
 
-					MFMessageComposeViewController message =
-						new MFMessageComposeViewController ();
-					message.Finished += (sender, e) => {
-						e.Controller.DismissViewController (true, null);
-					};
-					//message.Recipients = new string[] { receiver };
-					message.Body = totext;
-					PresentModalViewController (message, true);
-				} else {
-					new UIAlertView ("Sorry", "Cannot text from this device", null, "OK", null).Show ();
-				}
-			} else if (method == "TodoView") {
-				// the editing form
-				var button = parameters ["Button"];
-				if (button == "Save") {
-					var id = parameters ["id"];
-					var name = parameters ["name"];
-					var notes = parameters ["notes"];
-					var done = parameters ["done"];
+                    var dateArray = date.Split('.');
+                    var timeArray = time.Split(':');
+                    var todo = new Data
+                    {
+                        ID = Convert.ToInt32(id),
+                        Date = new DateTime(int.Parse(dateArray[2]), int.Parse(dateArray[1]), int.Parse(dateArray[0]), int.Parse(timeArray[0]), int.Parse(timeArray[1]), 0),
+                        Result = Decimal.Parse(result),
+                        Notes = notes,
+                        Group = date
+                    };
 
-					var todo = new TodoItem {
-						ID = Convert.ToInt32 (id),
-						Name = name,
-						Notes = notes,
-						Done = (done == "on")
-					};
+                    App.Database.SaveItem(todo);
 
-					App.Database.SaveItem (todo);
+                    var model = App.Database.GetItems().ToList();
 
-					var model = App.Database.GetItems ().ToList ();
-					var template = new TodoList () { Model = model };
-					var page = template.GenerateString ();
-					webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-				} else if (button == "Delete") {
-					var id = parameters ["id"];
+                    List<List<Data>> lista = model
+                    .GroupBy(u => u.Group)
+                    .Select(grp => grp.ToList())
+                    .ToList();
 
-					App.Database.DeleteItem (Convert.ToInt32 (id));
+                    var template = new TodoList() { Model = lista };
+                    var page = template.GenerateString();
+                    webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+                }
+                else if (button == "Delete")
+                {
+                    var id = parameters["id"];
 
-					var model = App.Database.GetItems ().ToList ();
-					var template = new TodoList () { Model = model };
-					var page = template.GenerateString ();
-					webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-				} else if (button == "Cancel") {
-					var model = App.Database.GetItems ().ToList ();
-					var template = new TodoList () { Model = model };
-					var page = template.GenerateString ();
-					webView.LoadHtmlString (page, NSBundle.MainBundle.BundleUrl);
-				} else if (button == "Speak") {
-					var name = parameters ["name"];
-					var notes = parameters ["notes"];
-					Speech.Speak (name + " " + notes);
-				}
-			}
-			return false;
-		}
-	}
+                    App.Database.DeleteItem(Convert.ToInt32(id));
+
+                    var model = App.Database.GetItems().ToList();
+                    List<List<Data>> lista = model
+                    .GroupBy(u => u.Group)
+                    .Select(grp => grp.ToList())
+                    .ToList();
+
+                    var template = new TodoList() { Model = lista };
+                    var page = template.GenerateString();
+
+                    webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+                }
+                else if (button == "Cancel")
+                {
+                    var model = App.Database.GetItems().ToList();
+                    List<List<Data>> lista = model
+                    .GroupBy(u => u.Group)
+                    .Select(grp => grp.ToList())
+                    .ToList();
+
+                    var template = new TodoList() { Model = lista };
+                    var page = template.GenerateString();
+
+                    webView.LoadHtmlString(page, NSBundle.MainBundle.BundleUrl);
+                }
+            }
+            return false;
+        }
+    }
 }
 

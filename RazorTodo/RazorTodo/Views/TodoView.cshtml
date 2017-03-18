@@ -1,31 +1,63 @@
 ﻿@using RazorTodo
-@model TodoItem
+@model RazorTodo.DataViewModel
 <html>
 <head>
-
+    <script src="https://code.jquery.com/jquery-3.2.0.js" integrity="sha256-wPFJNIFlVY49B+CuAIrDr932XSb6Jk3J1M22M3E2ylQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="default.css" />
+    <link rel="stylesheet" href="default.date.css" />
+    <link rel="stylesheet" href="default.time.css" />
+    <script type="text/javascript" src="legacy.js"></script>
+    <script type="text/javascript" src="picker.js"></script>
+    <script type="text/javascript" src="picker.date.js"></script>
+    <script type="text/javascript" src="picker.time.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<h1><a href="hybrid:ListAll?"><img src="arrow.png"/></a> Todo</h1>
-	<form action="hybrid:TodoView" method="GET">
-		<input name="id" type="hidden" value="@Model.ID" />
-		<p>Name</p>
-		<input name="name" value="@Model.Name" />
-		<p>Notes</p>
-		<input name="notes" value="@Model.Notes" />
-		<p><label for="done">Done:</label><input type="checkbox" name="done" @if (Model.Done) {
-					<text>checked="checked"</text>
-				}
-		/></p>
+    <h1><a href="hybrid:ListAll?"><img src="arrow.png" /></a> Todo</h1>
+    <form action="hybrid:DataView" method="GET">
+        <input name="id" type="hidden" value="@Model.ID" />
+        <p>Date</p>
+        <input name="date" type="text" value="@Model.Date" class="datepicker" />
+        <p>Time</p>
+        <input name="time" value="@Model.Time" class="timepicker" />
+        <p>Result</p>
+        <input name="result" value="@Model.Result" />
+        <p>Insulin</p>
+        <input name="insulin" value="@Model.Insulin" />
+        <p>Note</p>
+        <input name="notes" value="@Model.Notes" />
 
-		<p><input type="submit" name="Button" value="Save" />
-		@if (Model.ID <= 0) {
-			<input type="submit" name="Button" value="Cancel" />
-		} else {
-			<input type="submit" name="Button" value="Delete" />
-		}
-		</p>
-		<p><input type="submit" name="Button" value="Speak" /></p>
+        <p>
+            <input type="submit" name="Button" value="Save" />
+            @if (Model.ID <= 0)
+            {
+                <input type="submit" name="Button" value="Cancel" />
+            }
+            else {
+                <input type="submit" name="Button" value="Delete" />
+            }
+        </p>
 
-	</form>
+    </form>
 </body>
 </html>
+
+<script>
+    $('.datepicker').pickadate({
+        format: 'dd.mm.yyyy',
+        formatSubmit: 'dd.mm.yyyy',
+        selectYears: true,
+        selectMonths: true
+    });
+    $('.timepicker').pickatime({
+        // Escape any “rule” characters with an exclamation mark (!).
+        format: 'HH:i',
+        formatLabel: 'HH:i',
+        formatSubmit: 'HH:i',
+        interval: 5
+    })
+</script>

@@ -10,6 +10,7 @@ using Android.Speech.Tts;
 using Android.Webkit;
 using System.Linq;
 using RazorTodo.Views;
+using System.Collections.Generic;
 
 namespace RazorTodo
 {
@@ -58,7 +59,14 @@ namespace RazorTodo
 
 			// Render the view from the type generated from RazorView.cshtml
 			var model = App.Database.GetItems ().ToList();
-			var template = new TodoList () { Model = model };
+
+
+            List<List<Data>> lista = model
+                .GroupBy(u => u.Group)
+                .Select(grp => grp.ToList())
+                .ToList();
+
+            var template = new TodoList () { Model = lista };
 			var page = template.GenerateString ();
 
 			// Load the rendered HTML into the view with a base URL 

@@ -1,29 +1,68 @@
 ﻿@using RazorTodo
-@model List<TodoItem>
+@model List<List<Data>>
+
+
+
+@functions{
+    public string GetColor(decimal result)
+    {
+        if (result < 4)
+        {
+            return "#D88308";
+        }
+        else if (result >= 4 && result < 7)
+        {
+            return "#069651";
+
+        }
+        else if (result >= 7 && result < 10)
+        {
+            return "#D86608";
+
+        }
+        else
+        {
+            return "#D80808";
+        }
+    }
+}
+
+
     <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.2.0.js" integrity="sha256-wPFJNIFlVY49B+CuAIrDr932XSb6Jk3J1M22M3E2ylQ=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="default.css" />
+        <link rel="stylesheet" href="default.date.css" />
+        <link rel="stylesheet" href="default.time.css" />
+        <script type="text/javascript" src="legacy.js"></script>
+        <script type="text/javascript" src="picker.js"></script>
+        <script type="text/javascript" src="picker.date.js"></script>
+        <script type="text/javascript" src="picker.time.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body style="background-color:blue">
-        <h1>HybridRazorTodo <a href="hybrid:AddTask?"><img src="plus.png" /></a></h1>
-        <a href="hybrid:SpeakAll?">Speak Undone</a>
-        <a href="hybrid:TweetAll?">Tweet Undone</a>
-        <ul>
-            @foreach (var todo in @Model)
+    <body>
+        <a href="hybrid:AddTask?"><img src="plus.png" /></a>
+
+        @foreach (var g in @Model)
             {
-                <li>
-                    <a href="hybrid:ViewTask?todoid=@todo.ID">@todo.Name</a>
-                    @if (@todo.Done)
-                    {
-                        <img src="check.png" />
-                    }
-                </li>
-}
-        </ul>
+            <h4>@g[0].Group</h4>
+            @foreach (var m in @g)
+            {
+                <div class="measurement" data-id="@m.ID">
+                    <div style="width:30%; display:inline-block">@m.Date.ToString("HH:mm")</div>
+                    <div style="width:30%; display:inline-block">@m.Notes</div>
+                    <div style="width:30%; display:inline-block;">@m.Result mmol/L</div>
+                </div>
+            }
+
+        }
+
+        <hr />
+
         <div style="width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400; border-radius:3px">
             <div style="width:25%; display:inline-block">1.1.2016</div>
             <div style="width:47%; display:inline-block">Tost</div>
@@ -56,3 +95,11 @@
         </div>
     </body>
 </html>
+
+<script>
+
+    $(".measurement").on("click", function () {
+        var id = $(this).attr("data-id")
+        location.href = "hybrid:ViewTask?todoid=" + id;
+    });
+</script>

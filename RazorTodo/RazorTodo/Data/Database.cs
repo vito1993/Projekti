@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace RazorTodo
 {
-	public class TodoItemDatabase 
+	public class Database 
 	{
 		static object locker = new object ();
 
@@ -18,35 +18,28 @@ namespace RazorTodo
 		/// <param name='path'>
 		/// Path.
 		/// </param>
-		public TodoItemDatabase(SQLiteConnection conn)
+		public Database(SQLiteConnection conn)
 		{
 			database = conn;
 			// create the tables
-			database.CreateTable<TodoItem>();
+			database.CreateTable<Data>();
 		}
 
-		public IEnumerable<TodoItem> GetItems ()
+		public IEnumerable<Data> GetItems ()
 		{
 			lock (locker) {
-				return (from i in database.Table<TodoItem>() select i).ToList();
+				return (from i in database.Table<Data>() select i).ToList();
 			}
 		}
 
-		public IEnumerable<TodoItem> GetItemsNotDone ()
+		public Data GetItem (int id) 
 		{
 			lock (locker) {
-				return database.Query<TodoItem>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+				return database.Table<Data>().FirstOrDefault(x => x.ID == id);
 			}
 		}
 
-		public TodoItem GetItem (int id) 
-		{
-			lock (locker) {
-				return database.Table<TodoItem>().FirstOrDefault(x => x.ID == id);
-			}
-		}
-
-		public int SaveItem (TodoItem item) 
+		public int SaveItem (Data item) 
 		{
 			lock (locker) {
 				if (item.ID != 0) {
@@ -61,7 +54,7 @@ namespace RazorTodo
 		public int DeleteItem(int id)
 		{
 			lock (locker) {
-				return database.Delete<TodoItem>(id);
+				return database.Delete<Data>(id);
 			}
 		}
 	}

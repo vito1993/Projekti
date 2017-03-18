@@ -30,7 +30,35 @@ public partial class TodoList : TodoListBase
 #line hidden
 
 #line 2 "TodoList.cshtml"
-public List<TodoItem> Model { get; set; }
+public List<List<Data>> Model { get; set; }
+
+#line default
+#line hidden
+
+
+#line 6 "TodoList.cshtml"
+           
+    public string GetColor(decimal result)
+    {
+        if (result < 4)
+        {
+            return "#D88308";
+        }
+        else if (result >= 4 && result < 7)
+        {
+            return "#069651";
+
+        }
+        else if (result >= 7 && result < 10)
+        {
+            return "#D86608";
+
+        }
+        else
+        {
+            return "#D80808";
+        }
+    }
 
 #line default
 #line hidden
@@ -38,13 +66,65 @@ public List<TodoItem> Model { get; set; }
 
 public override void Execute()
 {
-WriteLiteral("    <html>\r\n    <head>\r\n        <link");
+WriteLiteral("\r\n\r\n");
+
+WriteLiteral("\r\n\r\n    <html>\r\n    <head>\r\n        <script");
+
+WriteLiteral(" src=\"https://code.jquery.com/jquery-3.2.0.js\"");
+
+WriteLiteral(" integrity=\"sha256-wPFJNIFlVY49B+CuAIrDr932XSb6Jk3J1M22M3E2ylQ=\"");
+
+WriteLiteral(" crossorigin=\"anonymous\"");
+
+WriteLiteral("></script>\r\n        <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" href=\"style.css\"");
 
 WriteLiteral(" />\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"default.css\"");
+
+WriteLiteral(" />\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"default.date.css\"");
+
+WriteLiteral(" />\r\n        <link");
+
+WriteLiteral(" rel=\"stylesheet\"");
+
+WriteLiteral(" href=\"default.time.css\"");
+
+WriteLiteral(" />\r\n        <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"legacy.js\"");
+
+WriteLiteral("></script>\r\n        <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"picker.js\"");
+
+WriteLiteral("></script>\r\n        <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"picker.date.js\"");
+
+WriteLiteral("></script>\r\n        <script");
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral(" src=\"picker.time.js\"");
+
+WriteLiteral("></script>\r\n        <link");
 
 WriteLiteral(" rel=\"stylesheet\"");
 
@@ -82,11 +162,7 @@ WriteLiteral(" name=\"viewport\"");
 
 WriteLiteral(" content=\"width=device-width, initial-scale=1\"");
 
-WriteLiteral(">\r\n    </head>\r\n    <body");
-
-WriteLiteral(" style=\"background-color:blue\"");
-
-WriteLiteral(">\r\n        <h1>HybridRazorTodo <a");
+WriteLiteral(">\r\n    </head>\r\n    <body>\r\n        <a");
 
 WriteLiteral(" href=\"hybrid:AddTask?\"");
 
@@ -94,90 +170,119 @@ WriteLiteral("><img");
 
 WriteLiteral(" src=\"plus.png\"");
 
-WriteLiteral(" /></a></h1>\r\n        <a");
-
-WriteLiteral(" href=\"hybrid:SpeakAll?\"");
-
-WriteLiteral(">Speak Undone</a>\r\n        <a");
-
-WriteLiteral(" href=\"hybrid:TweetAll?\"");
-
-WriteLiteral(">Tweet Undone</a>\r\n        <ul>\r\n");
+WriteLiteral(" /></a>\r\n\r\n");
 
 
-#line 16 "TodoList.cshtml"
-            
+#line 50 "TodoList.cshtml"
+        
 
 #line default
 #line hidden
 
-#line 16 "TodoList.cshtml"
-             foreach (var todo in @Model)
+#line 50 "TodoList.cshtml"
+         foreach (var g in @Model)
             {
 
 
 #line default
 #line hidden
-WriteLiteral("                <li>\r\n                    <a");
+WriteLiteral("            <h4>");
 
-WriteAttribute ("href", " href=\"", "\""
-, Tuple.Create<string,object,bool> ("", "hybrid:ViewTask?todoid=", true)
 
-#line 19 "TodoList.cshtml"
-             , Tuple.Create<string,object,bool> ("", todo.ID
+#line 52 "TodoList.cshtml"
+           Write(g[0].Group);
+
 
 #line default
 #line hidden
-, false)
-);
+WriteLiteral("</h4>\r\n");
+
+
+#line 53 "TodoList.cshtml"
+            
+
+#line default
+#line hidden
+
+#line 53 "TodoList.cshtml"
+             foreach (var m in @g)
+            {
+
+
+#line default
+#line hidden
+WriteLiteral("                <div");
+
+WriteLiteral(" class=\"measurement\"");
+
+WriteLiteral(" data-id=\"");
+
+
+#line 55 "TodoList.cshtml"
+                                             Write(m.ID);
+
+
+#line default
+#line hidden
+WriteLiteral("\"");
+
+WriteLiteral(">\r\n                    <div");
+
+WriteLiteral(" style=\"width:30%; display:inline-block\"");
+
 WriteLiteral(">");
 
 
-#line 19 "TodoList.cshtml"
-                                                         Write(todo.Name);
+#line 56 "TodoList.cshtml"
+                                                            Write(m.Date.ToString("HH:mm"));
 
 
 #line default
 #line hidden
-WriteLiteral("</a>\r\n");
+WriteLiteral("</div>\r\n                    <div");
+
+WriteLiteral(" style=\"width:30%; display:inline-block\"");
+
+WriteLiteral(">");
 
 
-#line 20 "TodoList.cshtml"
-                    
-
-#line default
-#line hidden
-
-#line 20 "TodoList.cshtml"
-                     if (@todo.Done)
-                    {
+#line 57 "TodoList.cshtml"
+                                                            Write(m.Notes);
 
 
 #line default
 #line hidden
-WriteLiteral("                        <img");
+WriteLiteral("</div>\r\n                    <div");
 
-WriteLiteral(" src=\"check.png\"");
+WriteLiteral(" style=\"width:30%; display:inline-block;\"");
 
-WriteLiteral(" />\r\n");
-
-
-#line 23 "TodoList.cshtml"
-                    }
+WriteLiteral(">");
 
 
-#line default
-#line hidden
-WriteLiteral("                </li>\r\n");
-
-
-#line 25 "TodoList.cshtml"
-}
+#line 58 "TodoList.cshtml"
+                                                             Write(m.Result);
 
 
 #line default
 #line hidden
-WriteLiteral("        </ul>\r\n        <div");
+WriteLiteral(" mmol/L</div>\r\n                </div>\r\n");
+
+
+#line 60 "TodoList.cshtml"
+            }
+
+#line default
+#line hidden
+
+#line 60 "TodoList.cshtml"
+             
+
+        }
+
+
+#line default
+#line hidden
+WriteLiteral("\r\n        <hr />\r\n\r\n        <div");
 
 WriteLiteral(" style=\"width:100%; background-color: rgba(0, 255, 0, 0.6);color:#004400; border-" +
 "radius:3px\"");
@@ -279,7 +384,9 @@ WriteLiteral(">Tost</div>\r\n            <div");
 
 WriteLiteral(" style=\"width:25%; display:inline-block; \"");
 
-WriteLiteral(">3,7</div>\r\n        </div>\r\n    </body>\r\n</html>\r\n");
+WriteLiteral(">3,7</div>\r\n        </div>\r\n    </body>\r\n</html>\r\n\r\n<script>\r\n\r\n    $(\".measureme" +
+"nt\").on(\"click\", function () {\r\n        var id = $(this).attr(\"data-id\")\r\n      " +
+"  location.href = \"hybrid:ViewTask?todoid=\" + id;\r\n    });\r\n</script>");
 
 }
 }
